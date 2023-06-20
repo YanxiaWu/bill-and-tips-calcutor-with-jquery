@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <title>Frontend Mentor | Tip calculator app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    body {
+      background-color: aquamarine;
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+
+    h1 {
+      margin: 100px 0px;
+    }
+
+    .box {
+      display: flex;
+      justify-content: center;
+      width: 80%;
+    }
+
+    .content-box {
+      width: 60%;
+      background-color: white;
+      border: white 1px solid;
+      border-radius: 5px;
+
+    }
+
+    input {
+      height: 35px;
+      border: none;
+      background-color: rgb(220, 226, 226);
+    }
+
+    #bill,
+    #number-people {
+      width: 95%;
+    }
+
+    .card {
+      border: none;
+      text-align: justify
+    }
+
+    .tips-percent input {
+      width: 80px;
+      background-color: rgb(146, 223, 223);
+      margin-bottom: 5px;
+      margin-right: 5px;
+      border-radius: 5px;
+    }
+
+
+    .tipPercent {
+      background-color: red !important;
+    }
+
+    .rigth-box .card {
+      background-color: rgb(34, 104, 104);
+      border-radius: 5px;
+      margin: 20px 0px;
+      height: 85%;
+
+    }
+
+    .card h2 {
+      color: rgb(56, 201, 201);
+      ;
+    }
+
+    .card button {
+      background-color: rgb(145, 241, 241);
+      width: 50%;
+    }
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      margin: 0 auto;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="attribution">
+    <h1> SPLITTER</h1>
+    <div style="display: flex; justify-content: center;">
+      <div class="box">
+        <div class="row content-box">
+          <div class="col-sm-6 mb-3 mb-sm-0">
+            <div class="card">
+              <div class="card-body">
+                <form action="">
+                  <label for="bill">Bill</label><br>
+                  <input type="text" id="bill" name="bill"><br>
+                  <label for="lname">Select Tip%</label><br>
+                  <div class="tips-percent">
+                    <div>
+                      <input type="button" value="5%">
+                      <input type="button" value="10%">
+                      <input type="button" value="15%">
+                    </div>
+                    <div>
+                      <input type="button" value="25%">
+                      <input type="button" value="50%">
+                      <input type="text" value="" placeholder="Custom" id="custonTip">%
+                    </div>
+                  </div>
+                  <div>
+                    <label for="number-people">Number of People</label><br>
+                    <input type="text" value="" placeholder="" id="number-people">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6  rigth-box">
+            <div class="card">
+              <div style="display: flex; justify-content: space-between;  margin:10px 30px ;">
+                <div style="color: white;">
+                  <p>Tip Amount</p>
+                  <p> /person</p>
+                </div>
+                <div style="font-size: large;">
+                  <span id="tip-person"></span> <span>$</span>
+                </div>
+              </div>
+              <div style="display: flex; justify-content: space-between;  margin:10px 30px ;">
+                <div style="color: white;">
+                  <p>Total</p>
+                  <p> /person</p>
+                </div>
+                <div style="font-size: large;">
+                  <span id="total-person"></span> <span>$</span>
+                </div>
+              </div>
+              <div>
+                <button type="button" class="btn btn-confirm" id="btn-confirm">Confirm</button>
+                <button type="button" class="btn btn-reset" id="btn-reset">Reset</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+
+<script>
+  $(document).ready(function () {
+    $('.tips-percent input').click(function () {
+      $('.tips-percent input').not(this).each(function () {
+        $(this).removeClass('tipPercent');
+      });
+      $(this).addClass('tipPercent')
+    })
+
+
+    $('#btn-confirm').click(function () {
+
+      billValue = Number($('#bill').val())
+      numberPerson = Number($('#number-people').val())
+      tipPercent = parseInt($('.tipPercent').val())
+      tipPercent = tipPercent / 100
+
+      var tipPorPerson = billValue * tipPercent / numberPerson
+      var totalPerson = (billValue + billValue * tipPercent) / numberPerson
+
+      document.getElementById('tip-person').innerHTML = tipPorPerson;
+      document.getElementById('total-person').innerHTML = totalPerson;
+
+    })
+
+
+
+
+    $('#btn-reset').click(function () {
+      console.log("he llegado aqui")
+      $('#bill').val('')
+      $('#number-people').val('')
+      $('.tipPercent').removeClass('tipPercent')
+      $('#custonTip').val('')
+      document.getElementById('tip-person').innerHTML = '';
+      document.getElementById('total-person').innerHTML = '';
+
+    })
+
+
+
+  })
+
+
+
+
+
+
+
+
+
+</script>
+
+<script>
+
+</script>
+
+</html>
