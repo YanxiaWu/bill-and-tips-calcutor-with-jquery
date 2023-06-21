@@ -198,7 +198,9 @@
       tipPercent = tipPercent / 100
 
       var tipPorPerson = billValue * tipPercent / numberPerson
+      tipPorPerson = tipPorPerson.toFixed(2)
       var totalPerson = (billValue + billValue * tipPercent) / numberPerson
+      totalPerson = totalPerson.toFixed(2)
 
       document.getElementById('tip-person').innerHTML = tipPorPerson;
       document.getElementById('total-person').innerHTML = totalPerson;
